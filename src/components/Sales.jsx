@@ -189,7 +189,7 @@ export default function Sales({ user, settings }) {
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.82)', zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
           <div style={{ background: '#fff', color: '#0f172a', borderRadius: '16px', padding: '36px', width: '100%', maxWidth: '400px', maxHeight: '90vh', overflowY: 'auto' }}>
             <div style={{ textAlign: 'center', borderBottom: '1px dashed #cbd5e1', paddingBottom: '18px', marginBottom: '18px' }}>
-              <img src={settings?.logo || logo} alt="logo" style={{ height: '48px', objectFit: 'contain', marginBottom: '10px' }} />
+              <img src={settings?.logo || logo} alt="logo" style={{ height: '60px', objectFit: 'contain', marginBottom: '14px' }} />
               <h2 style={{ fontSize: '20px', fontWeight: '800', margin: 0 }}>{settings?.companyName || 'BAS Accounting'}</h2>
               {settings?.address && <p style={{ fontSize: '12px', color: '#64748b', margin: '4px 0 0' }}>{settings.address}</p>}
               <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '8px' }}>

@@ -106,7 +106,7 @@ export default function Auth({ onAuthSuccess }) {
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: 'var(--bg-dark)' }}>
       <div className="glass-panel animate-fade-in" style={{ padding: '40px', width: '100%', maxWidth: '400px', textAlign: 'center' }}>
         {/* Logo */}
-        <img src={logo} alt="BAS Logo" style={{ width: '64px', height: '64px', objectFit: 'contain', margin: '0 auto 16px', display: 'block' }} />
+        <img src={logo} alt="BAS Logo" style={{ width: '90px', height: '90px', objectFit: 'contain', margin: '0 auto 20px', display: 'block' }} />
         <h2 style={{ marginBottom: '6px' }}>BAS Accounting</h2>
         <p style={{ color: 'var(--text-muted)', marginBottom: '28px', fontSize: '14px' }}>
           {mode === 'login'  ? 'Sign in to your dashboard'         :

@@ -150,8 +150,8 @@ function App() {
 
       {/* Sidebar */}
       <aside className="glass-panel sidebar-nav" style={{ width: '260px', margin: '16px', display: 'flex', flexDirection: 'column', padding: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '40px' }}>
-          <img src={logo} alt="BAS Logo" style={{ width: '40px', height: '40px', objectFit: 'contain', marginRight: '12px' }} />
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '36px' }}>
+          <img src={logo} alt="BAS Logo" style={{ width: '54px', height: '54px', objectFit: 'contain', marginRight: '14px' }} />
           <div>
             <h1 style={{ fontSize: '20px', fontWeight: 'bold', letterSpacing: '1px' }}>BAS</h1>
             <p style={{ fontSize: '11px', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
