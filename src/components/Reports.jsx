@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { collection, onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebase';
+import logo from '../assets/logo.png';
+
 
 // ── Date helper utilities ────────────────────────────────────────────────────
 const today     = () => new Date().toISOString().split('T')[0];
@@ -188,7 +190,7 @@ export default function Reports({ user, settings }) {
         {/* Company Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', borderBottom: '2px solid #0f172a', paddingBottom: '24px', marginBottom: '32px' }}>
           <div>
-            {settings?.logo && <img src={settings.logo} alt="Logo" style={{ height: '64px', marginBottom: '12px', objectFit: 'contain' }} />}
+            <img src={settings?.logo || logo} alt="Logo" style={{ height: '64px', marginBottom: '12px', objectFit: 'contain' }} />
             <h1 style={{ fontSize: '28px', margin: 0, fontWeight: '800', color: '#0f172a' }}>{settings?.companyName || 'Business Report'}</h1>
             {settings?.address && <p style={{ color: '#64748b', fontSize: '13px', whiteSpace: 'pre-wrap', marginTop: '6px' }}>{settings.address}</p>}
           </div>

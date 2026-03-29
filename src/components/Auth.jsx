@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { auth, db } from '../firebase';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
+import logo from '../assets/logo.png';
+
 
 export default function Auth({ onAuthSuccess }) {
   const [mode, setMode] = useState('login'); // 'login' | 'signup' | 'reset'
@@ -104,7 +106,7 @@ export default function Auth({ onAuthSuccess }) {
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: 'var(--bg-dark)' }}>
       <div className="glass-panel animate-fade-in" style={{ padding: '40px', width: '100%', maxWidth: '400px', textAlign: 'center' }}>
         {/* Logo */}
-        <div style={{ width: '56px', height: '56px', borderRadius: '14px', background: 'linear-gradient(135deg, var(--primary), var(--accent))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', fontSize: '28px', color: '#fff', margin: '0 auto 16px' }}>B</div>
+        <img src={logo} alt="BAS Logo" style={{ width: '64px', height: '64px', objectFit: 'contain', margin: '0 auto 16px', display: 'block' }} />
         <h2 style={{ marginBottom: '6px' }}>BAS Accounting</h2>
         <p style={{ color: 'var(--text-muted)', marginBottom: '28px', fontSize: '14px' }}>
           {mode === 'login'  ? 'Sign in to your dashboard'         :

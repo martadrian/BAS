@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { doc, setDoc, collection, getDocs, writeBatch, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase';
+import logo from '../assets/logo.png';
 import { InfoTooltip } from '../App';
 
 export default function Settings({ user, settings, setSettings }) {
@@ -77,8 +78,8 @@ export default function Settings({ user, settings, setSettings }) {
 
           {/* Logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <div style={{ width: '100px', height: '100px', borderRadius: '12px', background: formData.logo ? `url(${formData.logo}) center/cover` : 'rgba(255,255,255,0.05)', border: '2px dashed var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', flexShrink: 0 }}>
-              {!formData.logo && <span style={{ color: 'var(--text-muted)', fontSize: '12px' }}>No Logo</span>}
+            <div style={{ width: '100px', height: '100px', borderRadius: '12px', background: 'rgba(255,255,255,0.05)', border: '2px dashed var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', flexShrink: 0 }}>
+              <img src={formData.logo || logo} alt="Logo Preview" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div style={{ flex: 1 }}>
               <label style={labelStyle}>Company Logo</label>
