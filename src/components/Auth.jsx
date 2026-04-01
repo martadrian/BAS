@@ -56,7 +56,8 @@ export default function Auth({ onAuthSuccess }) {
         onAuthSuccess();
       }
     } catch (err) {
-      setError(friendlyErrors[err.code] || 'Something went wrong. Please try again.');
+      console.error(err);
+      setError(friendlyErrors[err.code] || `Firebase Error: ${err.code} - ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -89,7 +90,8 @@ export default function Auth({ onAuthSuccess }) {
       
       onAuthSuccess();
     } catch (err) {
-      setError(friendlyErrors[err.code] || 'Google sign-in failed. Please try again.');
+      console.error(err);
+      setError(friendlyErrors[err.code] || `Firebase Google Error: ${err.code} - ${err.message}`);
     } finally {
       setGoogleLoading(false);
     }
@@ -167,6 +169,12 @@ export default function Auth({ onAuthSuccess }) {
               ← Back to Login
             </span>
           )}
+        </div>
+
+        {/* Legal Links */}
+        <div style={{ marginTop: '32px', borderTop: '1px solid var(--glass-border)', paddingTop: '16px', display: 'flex', justifyContent: 'center', gap: '20px' }}>
+          <a href="#privacy" style={{ color: 'var(--text-muted)', fontSize: '11px', textDecoration: 'none', opacity: 0.6 }}>Privacy Policy</a>
+          <a href="#terms" style={{ color: 'var(--text-muted)', fontSize: '11px', textDecoration: 'none', opacity: 0.6 }}>Terms of Service</a>
         </div>
       </div>
     </div>
