@@ -31,6 +31,7 @@ export default function SalesHistory({ user, settings }) {
   const [from, setFrom]   = useState('2020-01-01');
   const [to, setTo]       = useState('2099-12-31');
   const [expanded, setExpanded] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const currency = settings?.currency || '$';
 
@@ -52,7 +53,15 @@ export default function SalesHistory({ user, settings }) {
   if (!sales) return <div style={{ textAlign: 'center', marginTop: '60px', color: 'var(--text-muted)' }}>Loading records...</div>;
 
   const sorted   = [...sales].sort((a, b) => new Date(b.date) - new Date(a.date));
-  const filtered = filterSales(sorted, from, to);
+  const dateFiltered = filterSales(sorted, from, to);
+  const filtered = dateFiltered.filter(sale => {
+    if (!searchTerm) return true;
+    const term = searchTerm.toLowerCase();
+    return (
+      (sale.invoiceId && sale.invoiceId.toLowerCase().includes(term)) ||
+      (sale.customer?.name && sale.customer.name.toLowerCase().includes(term))
+    );
+  });
   const periodTotal = filtered.reduce((s, t) => s + t.total, 0);
   const periodItems = filtered.reduce((s, t) => s + (t.items || []).reduce((a, i) => a + i.qty, 0), 0);
 
@@ -69,18 +78,26 @@ export default function SalesHistory({ user, settings }) {
 
       {/* Filter Bar */}
       <div className="glass-panel" style={{ padding: '16px 20px', background: 'rgba(255,255,255,0.02)' }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: '16px' }}>
-          {PRESETS.map(p => (
-            <button key={p.label} onClick={() => applyPreset(p)}
-              style={{
-                padding: '8px 16px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '12px', fontWeight: '600',
-                background: activePreset === p.label ? 'var(--primary)' : 'rgba(255,255,255,0.05)',
-                color: activePreset === p.label ? '#fff' : 'var(--text-main)',
-                transition: 'all 0.2s'
-              }}>
-              {p.label}
-            </button>
-          ))}
+        <div style={{ display: 'flex', gap: '20px', marginBottom: '16px', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div style={{ flex: 1, minWidth: '250px', position: 'relative' }}>
+            <span style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }}>🔍</span>
+            <input type="text" placeholder="Search by Invoice ID or Customer Name..." 
+              value={searchTerm} onChange={e => setSearchTerm(e.target.value)}
+              style={{ width: '100%', padding: '10px 10px 10px 36px', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', borderRadius: '8px', color: '#fff', outline: 'none', fontSize: '13px' }} />
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {PRESETS.map(p => (
+              <button key={p.label} onClick={() => applyPreset(p)}
+                style={{
+                  padding: '8px 16px', borderRadius: '10px', border: 'none', cursor: 'pointer', fontSize: '12px', fontWeight: '600',
+                  background: activePreset === p.label ? 'var(--primary)' : 'rgba(255,255,255,0.05)',
+                  color: activePreset === p.label ? '#fff' : 'var(--text-main)',
+                  transition: 'all 0.2s'
+                }}>
+                {p.label}
+              </button>
+            ))}
+          </div>
         </div>
         
         {/* Stats Row */}
