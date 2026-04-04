@@ -151,7 +151,9 @@ export default function Sales({ user, settings }) {
         const p = inventory.find(i => i.id === pId);
         batch.update(doc(db, `businesses/${user.uid}/inventory/${pId}`), { quantity: p.quantity - used });
       }
+      const invoiceId = `INV-${Math.floor(Date.now() / 1000).toString().slice(-4)}${Math.floor(10 + Math.random() * 90)}`;
       const saleData = {
+        invoiceId,
         date: new Date().toISOString(), subtotal: subtotalTotal, taxRate, taxAmount: taxAmountVal, total: totalVal,
         profit: grossProfit,
         items: cart.map(i => ({ id: i.productId, name: i.name, qty: i.cartQty, price: i.sellingPrice })),
@@ -193,7 +195,7 @@ export default function Sales({ user, settings }) {
               <h2 style={{ fontSize: '20px', fontWeight: '800', margin: 0 }}>{settings?.companyName || 'BAS Accounting'}</h2>
               {settings?.address && <p style={{ fontSize: '12px', color: '#64748b', margin: '4px 0 0' }}>{settings.address}</p>}
               <p style={{ fontSize: '12px', color: '#94a3b8', marginTop: '8px' }}>
-                {new Date(receipt.date).toLocaleDateString()} · {new Date(receipt.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {new Date(receipt.date).toLocaleDateString()} · {new Date(receipt.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} · <span style={{ color: '#64748b', fontWeight: 'bold' }}>{receipt.invoiceId}</span>
               </p>
               {receipt.customer?.name && (
                 <p style={{ fontSize: '13px', marginTop: '8px', padding: '6px 12px', background: '#f1f5f9', borderRadius: '6px', display: 'inline-block' }}>

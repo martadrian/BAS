@@ -56,8 +56,7 @@ export default function Auth({ onAuthSuccess }) {
         onAuthSuccess();
       }
     } catch (err) {
-      console.error(err);
-      setError(friendlyErrors[err.code] || `Firebase Error: ${err.code} - ${err.message}`);
+      setError(friendlyErrors[err.code] || 'Something went wrong. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -90,8 +89,7 @@ export default function Auth({ onAuthSuccess }) {
       
       onAuthSuccess();
     } catch (err) {
-      console.error(err);
-      setError(friendlyErrors[err.code] || `Firebase Google Error: ${err.code} - ${err.message}`);
+      setError(friendlyErrors[err.code] || 'Google sign-in failed. Please try again.');
     } finally {
       setGoogleLoading(false);
     }

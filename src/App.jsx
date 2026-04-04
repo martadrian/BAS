@@ -11,15 +11,30 @@ import Sales from './components/Sales';
 import Dashboard from './components/Dashboard';
 import Reports from './components/Reports';
 import SalesHistory from './components/SalesHistory';
+import { PrivacyPolicy, TermsOfService } from './components/Legal';
 import './index.css';
 
 function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [user, setUser] = useState(null);
+  const [legalView, setLegalView] = useState(null); // 'privacy' | 'terms' | null
   const [userProfile, setUserProfile] = useState(null); // { businessId, role }
   const [loadingConfig, setLoadingConfig] = useState(true);
   const [globalSettings, setGlobalSettings] = useState({ currency: '$' });
   const [pendingInvite, setPendingInvite] = useState(null);
+
+  // Hash Routing for Privacy & Terms
+  useEffect(() => {
+    const handleHash = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h === '#privacy') setLegalView('privacy');
+      else if (h === '#terms') setLegalView('terms');
+      else setLegalView(null);
+    };
+    handleHash();
+    window.addEventListener('hashchange', () => handleHash());
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   useEffect(() => {
     let profileUnsub = null;
@@ -123,6 +138,10 @@ function App() {
   if (loadingConfig) {
     return <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-dark)', color: '#fff' }}>Loading secure environment...</div>;
   }
+
+  // Render Legal Views (Publicly Accessible)
+  if (legalView === 'privacy') return <div style={{ background: 'var(--bg-dark)', minHeight: '100vh', padding: '1px' }}><PrivacyPolicy onBack={() => { window.location.hash = ''; setLegalView(null); }} /></div>;
+  if (legalView === 'terms') return <div style={{ background: 'var(--bg-dark)', minHeight: '100vh', padding: '1px' }}><TermsOfService onBack={() => { window.location.hash = ''; setLegalView(null); }} /></div>;
 
   if (!user) return <Auth onAuthSuccess={() => {}} />;
 

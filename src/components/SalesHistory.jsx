@@ -116,7 +116,10 @@ export default function SalesHistory({ user, settings }) {
                   style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', background: isOpen ? 'rgba(79,142,247,0.05)' : 'transparent' }}>
                   <div style={{ display: 'flex', gap: '32px', alignItems: 'center' }}>
                     <div>
-                      <div style={{ fontWeight: '600', fontSize: '14px', color: '#fff' }}>{new Date(sale.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</div>
+                      <div style={{ fontWeight: '600', fontSize: '14px', color: '#fff' }}>
+                        {sale.invoiceId && <span style={{ color: 'var(--accent)', marginRight: '8px', fontSize: '13px' }}>{sale.invoiceId}</span>}
+                        {new Date(sale.date).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                      </div>
                       <div style={{ fontSize: '12px', color: 'var(--text-muted)', marginTop: '2px' }}>{new Date(sale.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                     </div>
                     <div style={{ display: 'flex', gap: '8px' }}>
