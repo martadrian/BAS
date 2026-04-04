@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, onSnapshot, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import { InfoTooltip } from '../App';
 
 export default function Dashboard({ user, settings }) {
-// ... existing state ...
   const [sales, setSales] = useState(null);
   const [inventory, setInventory] = useState(null);
   const [expenses, setExpenses] = useState(null);
@@ -13,11 +12,31 @@ export default function Dashboard({ user, settings }) {
 
   useEffect(() => {
     if (!user) return;
-    const unsub1 = onSnapshot(collection(db, `businesses/${user.uid}/sales`), s => setSales(s.docs.map(d => d.data())));
+
+    // Inventory uses live listeners since it needs immediate low stock alerts
     const unsub2 = onSnapshot(collection(db, `businesses/${user.uid}/inventory`), s => setInventory(s.docs.map(d => d.data())));
-    const unsub3 = onSnapshot(collection(db, `businesses/${user.uid}/expenses`), s => setExpenses(s.docs.map(d => d.data())));
     
-    return () => { unsub1(); unsub2(); unsub3(); };
+    const fetchData = async () => {
+      try {
+        const today = new Date().toISOString().split('T')[0];
+        const thisMonth = today.substring(0, 7);
+        const firstDayOfMonth = `${thisMonth}-01T00:00:00`;
+
+        const qSales = query(collection(db, `businesses/${user.uid}/sales`), where('date', '>=', firstDayOfMonth));
+        const qExp = query(collection(db, `businesses/${user.uid}/expenses`), where('date', '>=', firstDayOfMonth));
+
+        const [salesSnap, expSnap] = await Promise.all([getDocs(qSales), getDocs(qExp)]);
+        setSales(salesSnap.docs.map(d => d.data()));
+        setExpenses(expSnap.docs.map(d => d.data()));
+      } catch (err) {
+        console.error("Dashboard fetch error:", err);
+        setSales([]); setExpenses([]);
+      }
+    };
+    
+    fetchData();
+    
+    return () => unsub2();
   }, [user]);
 
   const today = new Date().toISOString().split('T')[0];

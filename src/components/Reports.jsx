@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot, addDoc, deleteDoc, doc } from 'firebase/firestore';
+import { collection, onSnapshot, addDoc, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
 import { db } from '../firebase';
 import logo from '../assets/logo.png';
 
@@ -65,10 +65,37 @@ export default function Reports({ user, settings }) {
 
   useEffect(() => {
     if (!user) return;
-    const unsub1 = onSnapshot(collection(db, `businesses/${user.uid}/sales`), s => setSales(s.docs.map(d => ({ id: d.id, ...d.data() }))));
+    
+    // Expenses is low-volume, keep live sync for add/delete
     const unsub2 = onSnapshot(collection(db, `businesses/${user.uid}/expenses`), s => setExpenses(s.docs.map(d => ({ id: d.id, ...d.data() }))));
-    return () => { unsub1(); unsub2(); };
-  }, [user]);
+    
+    // Sales uses manual fetch bounded by date
+    const fetchSales = async () => {
+      setSales(null); // Show loading temporarily while fetching
+      let q = collection(db, `businesses/${user.uid}/sales`);
+      
+      if (fromDate && toDate) {
+        q = query(q, where('date', '>=', fromDate), where('date', '<=', toDate + 'T23:59:59'));
+      } else if (activePreset && activePreset !== 'All Time') {
+        const { from, to } = PRESETS.find(p => p.label === activePreset)?.range() || {};
+        if (from && to) {
+          q = query(q, where('date', '>=', from), where('date', '<=', to + 'T23:59:59'));
+        }
+      }
+      
+      try {
+        const snap = await getDocs(q);
+        setSales(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      } catch(err) {
+        console.error("Reports sales fetch error:", err);
+        setSales([]);
+      }
+    };
+    
+    fetchSales();
+    
+    return () => unsub2();
+  }, [user, activePreset, fromDate, toDate]);
 
   const applyPreset = (preset) => {
     const { from, to } = preset.range();

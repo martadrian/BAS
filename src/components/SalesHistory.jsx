@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, getDocs, query, where, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 
 // ── Date helpers ─────────────────────────────────────────────────────────────
@@ -37,11 +37,29 @@ export default function SalesHistory({ user, settings }) {
 
   useEffect(() => {
     if (!user) return;
-    const unsub = onSnapshot(collection(db, `businesses/${user.uid}/sales`), snap =>
-      setSales(snap.docs.map(d => ({ id: d.id, ...d.data() })))
-    );
-    return () => unsub();
-  }, [user]);
+    
+    const fetchSales = async () => {
+      setSales(null); // Show loading state briefly
+      let q = collection(db, `businesses/${user.uid}/sales`);
+      
+      if (activePreset !== 'All') {
+        q = query(q, 
+          where('date', '>=', from), 
+          where('date', '<=', to + 'T23:59:59')
+        );
+      }
+      
+      try {
+        const snap = await getDocs(q);
+        setSales(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+      } catch (err) {
+        console.error("Failed to fetch sales history:", err);
+        setSales([]);
+      }
+    };
+
+    fetchSales();
+  }, [user, from, to, activePreset]);
 
   const applyPreset = (preset) => {
     const r = preset.range();
