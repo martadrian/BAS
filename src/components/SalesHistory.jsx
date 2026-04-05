@@ -175,26 +175,28 @@ export default function SalesHistory({ user, settings }) {
                         📞 Customer Phone: <strong style={{ color: '#fff' }}>{sale.customer.phone}</strong>
                       </div>
                     )}
-                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-                      <thead>
-                        <tr style={{ background: 'rgba(255,255,255,0.03)' }}>
-                          <th style={{ padding: '12px 20px', textAlign: 'left', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Item</th>
-                          <th style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Qty</th>
-                          <th style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Price</th>
-                          <th style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sale.items?.map((item, i) => (
-                          <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
-                            <td style={{ padding: '12px 20px', fontWeight: '500', color: '#e2e8f0' }}>{item.name}</td>
-                            <td style={{ padding: '12px 20px', textAlign: 'right' }}>{item.qty}</td>
-                            <td style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)' }}>{currency}{item.price?.toLocaleString()}</td>
-                            <td style={{ padding: '12px 20px', textAlign: 'right', fontWeight: '700' }}>{currency}{(item.qty * item.price).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                    <div className="table-responsive">
+                      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
+                        <thead>
+                          <tr style={{ background: 'rgba(255,255,255,0.03)' }}>
+                            <th style={{ padding: '12px 20px', textAlign: 'left', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Item</th>
+                            <th style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Qty</th>
+                            <th style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Price</th>
+                            <th style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)', textTransform: 'uppercase', fontSize: '11px', fontWeight: '700' }}>Total</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                        </thead>
+                        <tbody>
+                          {sale.items?.map((item, i) => (
+                            <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
+                              <td style={{ padding: '12px 20px', fontWeight: '500', color: '#e2e8f0' }}>{item.name}</td>
+                              <td style={{ padding: '12px 20px', textAlign: 'right' }}>{item.qty}</td>
+                              <td style={{ padding: '12px 20px', textAlign: 'right', color: 'var(--text-muted)' }}>{currency}{item.price?.toLocaleString()}</td>
+                              <td style={{ padding: '12px 20px', textAlign: 'right', fontWeight: '700' }}>{currency}{(item.qty * item.price).toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 )}
               </div>

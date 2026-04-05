@@ -89,37 +89,37 @@ export default function Dashboard({ user, settings }) {
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
+      <div className="responsive-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px', alignItems: 'start' }}>
         {/* Recent Sales Table */}
         <div className="glass-panel" style={{ padding: '24px', minHeight: 0 }}>
           <h3 style={{ marginBottom: '16px', fontSize: '18px' }}>Recent Transactions <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '400' }}>(last 5)</span></h3>
           {sales.length === 0 ? (
             <p style={{ color: 'var(--text-muted)', fontSize: '14px' }}>No sales recorded yet.</p>
           ) : (
-            <div style={{ overflowY: 'auto', maxHeight: '280px' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
-              <thead>
-                <tr style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--glass-border)' }}>
-                  <th style={{ padding: '12px 8px' }}>Date / Time</th>
-                  <th style={{ padding: '12px 8px' }}>Items</th>
-                  <th style={{ padding: '12px 8px', textAlign: 'right' }}>Total Sum</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...sales].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 5).map((s, idx) => (
-                  <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
-                    <td style={{ padding: '14px 8px', color: 'var(--text-main)' }}>
-                      <span style={{ fontWeight: '500' }}>{new Date(s.date).toLocaleDateString()}</span>
-                      <span style={{ color: 'var(--text-muted)', marginLeft: '8px', fontSize: '11px' }}>{new Date(s.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-                    </td>
-                    <td style={{ padding: '14px 8px' }}>
-                       <span className="badge badge-blue">{s.items.reduce((acc, i) => acc + i.qty, 0)} units</span>
-                    </td>
-                    <td style={{ padding: '14px 8px', textAlign: 'right', fontWeight: '700', color: '#fff' }}>{currency}{s.total.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+            <div className="table-responsive" style={{ overflowY: 'auto', maxHeight: '280px' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '13px' }}>
+                <thead>
+                  <tr style={{ color: 'var(--text-muted)', borderBottom: '1px solid var(--glass-border)' }}>
+                    <th style={{ padding: '12px 8px' }}>Date / Time</th>
+                    <th style={{ padding: '12px 8px' }}>Items</th>
+                    <th style={{ padding: '12px 8px', textAlign: 'right' }}>Total Sum</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {[...sales].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 5).map((s, idx) => (
+                    <tr key={idx} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
+                      <td style={{ padding: '14px 8px', color: 'var(--text-main)' }}>
+                        <span style={{ fontWeight: '500' }}>{new Date(s.date).toLocaleDateString()}</span>
+                        <span style={{ color: 'var(--text-muted)', marginLeft: '8px', fontSize: '11px' }}>{new Date(s.date).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
+                      </td>
+                      <td style={{ padding: '14px 8px' }}>
+                         <span className="badge badge-blue">{s.items.reduce((acc, i) => acc + i.qty, 0)} units</span>
+                      </td>
+                      <td style={{ padding: '14px 8px', textAlign: 'right', fontWeight: '700', color: '#fff' }}>{currency}{s.total.toLocaleString(undefined, {minimumFractionDigits: 2})}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>

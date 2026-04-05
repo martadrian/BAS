@@ -171,3 +171,113 @@ input:focus, select:focus, textarea:focus {
 .badge-yellow { background: rgba(245,158,11,0.12); color: #f59e0b; border: 1px solid rgba(245,158,11,0.25); }
 .badge-red    { background: rgba(244,63,94,0.12);  color: #f43f5e; border: 1px solid rgba(244,63,94,0.25); }
 .badge-blue   { background: rgba(79,142,247,0.12); color: #4f8ef7; border: 1px solid rgba(79,142,247,0.25); }
+
+/* ── Mobile Optimization & Responsive Utilities ───────────────────────────── */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 16px;
+}
+
+.table-responsive table {
+  min-width: 600px; /* Ensure tables don't compress text infinitely */
+}
+
+@media (max-width: 768px) {
+  .mobile-hide { display: none !important; }
+  .mobile-stack { flex-direction: column !important; }
+  .mobile-full-width { 
+    width: 100% !important; 
+    min-width: 100% !important; 
+    max-width: 100% !important; 
+  }
+  .mobile-p-sm { padding: 12px !important; }
+  .mobile-gap-sm { gap: 12px !important; }
+  .responsive-grid { grid-template-columns: 1fr !important; }
+
+  /* App Container overriding to fit bottom nav */
+  .app-container {
+    flex-direction: column !important;
+    padding-bottom: 74px !important; 
+    height: 100dvh !important;
+  }
+
+  /* Main Wrapper reset */
+  main {
+    padding: 0 !important;
+  }
+  .main-content-area {
+    padding: 16px !important;
+    border-radius: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  /* Sticky Bottom Navigation overrides for .sidebar-nav */
+  .sidebar-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 74px !important;
+    margin: 0 !important;
+    padding: 6px 12px 16px !important; /* Extra bottom padding for iOS home bar */
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    z-index: 2000 !important;
+    border-radius: 20px 20px 0 0 !important;
+    border-right: none !important;
+    border-top: 1px solid var(--glass-border) !important;
+    background: rgba(15, 23, 42, 0.95) !important;
+    backdrop-filter: blur(24px) saturate(200%);
+  }
+
+  .sidebar-nav nav {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    gap: 0 !important;
+  }
+
+  .sidebar-nav nav button {
+    flex: 1 !important;
+    padding: 6px 4px !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    border: none !important;
+  }
+  
+  .sidebar-nav nav button > div {
+    flex-direction: column !important;
+    gap: 4px !important;
+    align-items: center !important;
+  }
+
+  .sidebar-nav nav button span {
+    font-size: 22px !important;
+  }
+
+  .nav-label {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    text-transform: capitalize !important;
+  }
+
+  .sidebar-header, .sidebar-logout, .sidebar-footer {
+    display: none !important;
+  }
+
+  /* Mobile overlay modals (like Receipt) */
+  .mobile-modal-content {
+    padding: 24px 16px !important;
+    border-radius: 16px 16px 0 0 !important;
+    margin-top: auto !important; /* pushes modal to bottom */
+  }
+
+  /* Typography reset for mobile */
+  .main-header h2 { font-size: 22px !important; }
+}

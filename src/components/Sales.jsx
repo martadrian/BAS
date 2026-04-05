@@ -184,7 +184,7 @@ export default function Sales({ user, settings }) {
   const inputBase = { background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', borderRadius: '8px', color: '#fff', outline: 'none', fontFamily: 'inherit' };
 
   return (
-    <div style={{ display: 'flex', height: '100%', gap: '20px', overflow: 'hidden' }}>
+    <div className="mobile-stack" style={{ display: 'flex', height: '100%', gap: '20px', overflow: 'hidden' }}>
 
       {/* ── Receipt Modal ── */}
       {receipt && (
@@ -289,7 +289,7 @@ export default function Sales({ user, settings }) {
       </div>
 
       {/* ── RIGHT: Checkout Panel ── */}
-      <div className="glass-panel animate-fade-in" style={{ width: '380px', flexShrink: 0, padding: '24px', display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden' }}>
+      <div className="glass-panel animate-fade-in mobile-full-width" style={{ width: '380px', flexShrink: 0, padding: '24px', display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden' }}>
 
         {/* Panel Header */}
         <div style={{ marginBottom: '18px', borderBottom: '1px solid var(--glass-border)', paddingBottom: '16px' }}>

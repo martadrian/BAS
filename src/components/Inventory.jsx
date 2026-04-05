@@ -290,7 +290,7 @@ export default function Inventory({ user, settings }) {
           <p style={{ marginTop: '16px' }}>No products yet. Click '+ Add Product' to get started.</p>
         </div>
       ) : products.length > 0 && (
-        <div style={{ overflowX: 'auto', background: 'rgba(0,0,0,0.1)', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
+        <div className="table-responsive" style={{ background: 'rgba(0,0,0,0.1)', borderRadius: '12px', border: '1px solid var(--glass-border)' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
             <thead>
               <tr style={{ background: 'rgba(255,255,255,0.05)' }}>

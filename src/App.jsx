@@ -169,7 +169,7 @@ function App() {
 
       {/* Sidebar */}
       <aside className="glass-panel sidebar-nav" style={{ width: '260px', margin: '16px', display: 'flex', flexDirection: 'column', padding: '24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '36px' }}>
+        <div className="sidebar-header" style={{ display: 'flex', alignItems: 'center', marginBottom: '36px' }}>
           <img src={logo} alt="BAS Logo" style={{ width: '54px', height: '54px', objectFit: 'contain', marginRight: '14px' }} />
           <div>
             <h1 style={{ fontSize: '20px', fontWeight: 'bold', letterSpacing: '1px' }}>BAS</h1>
@@ -206,7 +206,7 @@ function App() {
                   <span style={{ fontSize: '18px' }}>
                     {tab === 'dashboard' ? '📊' : tab === 'inventory' ? '📦' : tab === 'sales' ? '💰' : tab === 'history' ? '🧾' : tab === 'reports' ? '📈' : '⚙️'}
                   </span>
-                  {tab}
+                  <span className="nav-label">{tab}</span>
                 </div>
               </button>
             );
@@ -215,10 +215,11 @@ function App() {
         
         <button 
           onClick={() => signOut(auth)}
+          className="sidebar-logout"
           style={{ background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', border: 'none', padding: '12px 16px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold', marginTop: '16px', textAlign: 'left', display: 'flex', alignItems: 'center', gap: '12px' }}>
           <span style={{ fontSize: '18px' }}>🚪</span> Logout
         </button>
-        <div style={{
+        <div className="sidebar-footer" style={{
           marginTop: '12px',
           borderTop: '1px solid var(--glass-border)',
           paddingTop: '16px',

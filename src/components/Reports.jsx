@@ -251,31 +251,33 @@ export default function Reports({ user, settings }) {
           {allItemsSold.length === 0 ? (
             <p style={{ color: '#94a3b8', fontStyle: 'italic', padding: '16px 0' }}>No sales in this period.</p>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  {['Date', 'Time', 'Item Name', 'Qty', 'Unit Price', 'Line Total'].map((h, i) => (
-                    <th key={h} style={{ ...headStyle, textAlign: i >= 3 ? 'right' : 'left' }}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {allItemsSold.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                    <td style={cellStyle}>{row.date}</td>
-                    <td style={cellStyle}>{row.time}</td>
-                    <td style={{ ...cellStyle, fontWeight: '500', color: '#1e293b' }}>{row.name}</td>
-                    <td style={{ ...cellStyle, textAlign: 'right' }}>{row.qty}</td>
-                    <td style={{ ...cellStyle, textAlign: 'right' }}>{currency}{row.unitPrice?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                    <td style={{ ...cellStyle, textAlign: 'right', fontWeight: '700', color: '#0f172a' }}>{currency}{row.lineTotal?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+            <div className="table-responsive">
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr>
+                    {['Date', 'Time', 'Item Name', 'Qty', 'Unit Price', 'Line Total'].map((h, i) => (
+                      <th key={h} style={{ ...headStyle, textAlign: i >= 3 ? 'right' : 'left' }}>{h}</th>
+                    ))}
                   </tr>
-                ))}
-                <tr style={{ background: '#f1f5f9', fontWeight: '700' }}>
-                  <td colSpan={5} style={{ ...cellStyle, textAlign: 'right', color: '#334155' }}>TOTAL REVENUE</td>
-                  <td style={{ ...cellStyle, textAlign: 'right', color: '#0f172a', fontSize: '14px' }}>{currency}{totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                </tr>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {allItemsSold.map((row, i) => (
+                    <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                      <td style={cellStyle}>{row.date}</td>
+                      <td style={cellStyle}>{row.time}</td>
+                      <td style={{ ...cellStyle, fontWeight: '500', color: '#1e293b' }}>{row.name}</td>
+                      <td style={{ ...cellStyle, textAlign: 'right' }}>{row.qty}</td>
+                      <td style={{ ...cellStyle, textAlign: 'right' }}>{currency}{row.unitPrice?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                      <td style={{ ...cellStyle, textAlign: 'right', fontWeight: '700', color: '#0f172a' }}>{currency}{row.lineTotal?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                    </tr>
+                  ))}
+                  <tr style={{ background: '#f1f5f9', fontWeight: '700' }}>
+                    <td colSpan={5} style={{ ...cellStyle, textAlign: 'right', color: '#334155' }}>TOTAL REVENUE</td>
+                    <td style={{ ...cellStyle, textAlign: 'right', color: '#0f172a', fontSize: '14px' }}>{currency}{totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 
@@ -296,33 +298,35 @@ export default function Reports({ user, settings }) {
           {expenses.length === 0 ? (
             <p style={{ color: '#94a3b8', fontStyle: 'italic' }}>No expenses recorded.</p>
           ) : (
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-              <thead>
-                <tr>
-                  <th style={headStyle}>Date</th>
-                  <th style={headStyle}>Description</th>
-                  <th style={{ ...headStyle, textAlign: 'right' }}>Amount</th>
-                  <th className="no-print" style={{ ...headStyle, textAlign: 'right' }}>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...expenses].sort((a, b) => new Date(b.date) - new Date(a.date)).map((e, i) => (
-                  <tr key={e.id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
-                    <td style={cellStyle}>{new Date(e.date).toLocaleDateString()}</td>
-                    <td style={cellStyle}>{e.description}</td>
-                    <td style={{ ...cellStyle, textAlign: 'right', fontWeight: '700', color: '#991b1b' }}>{currency}{e.amount?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                    <td className="no-print" style={{ ...cellStyle, textAlign: 'right' }}>
-                      <button onClick={() => deleteExpense(e.id)} style={{ background: 'transparent', color: '#ef4444', border: 'none', cursor: 'pointer', textDecoration: 'underline', fontSize: '12px' }}>Remove</button>
-                    </td>
+            <div className="table-responsive">
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr>
+                    <th style={headStyle}>Date</th>
+                    <th style={headStyle}>Description</th>
+                    <th style={{ ...headStyle, textAlign: 'right' }}>Amount</th>
+                    <th className="no-print" style={{ ...headStyle, textAlign: 'right' }}>Action</th>
                   </tr>
-                ))}
-                <tr style={{ background: '#f1f5f9', fontWeight: '700' }}>
-                  <td colSpan={2} style={{ ...cellStyle, textAlign: 'right', color: '#334155' }}>TOTAL EXPENSES</td>
-                  <td style={{ ...cellStyle, textAlign: 'right', color: '#991b1b', fontSize: '14px' }}>{currency}{totalExpenses.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
-                  <td className="no-print" style={cellStyle}></td>
-                </tr>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {[...expenses].sort((a, b) => new Date(b.date) - new Date(a.date)).map((e, i) => (
+                    <tr key={e.id} style={{ background: i % 2 === 0 ? '#fff' : '#f8fafc' }}>
+                      <td style={cellStyle}>{new Date(e.date).toLocaleDateString()}</td>
+                      <td style={cellStyle}>{e.description}</td>
+                      <td style={{ ...cellStyle, textAlign: 'right', fontWeight: '700', color: '#991b1b' }}>{currency}{e.amount?.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                      <td className="no-print" style={{ ...cellStyle, textAlign: 'right' }}>
+                        <button onClick={() => deleteExpense(e.id)} style={{ background: 'transparent', color: '#ef4444', border: 'none', cursor: 'pointer', textDecoration: 'underline', fontSize: '12px' }}>Remove</button>
+                      </td>
+                    </tr>
+                  ))}
+                  <tr style={{ background: '#f1f5f9', fontWeight: '700' }}>
+                    <td colSpan={2} style={{ ...cellStyle, textAlign: 'right', color: '#334155' }}>TOTAL EXPENSES</td>
+                    <td style={{ ...cellStyle, textAlign: 'right', color: '#991b1b', fontSize: '14px' }}>{currency}{totalExpenses.toLocaleString(undefined, { minimumFractionDigits: 2 })}</td>
+                    <td className="no-print" style={cellStyle}></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 
