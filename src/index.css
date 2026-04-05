@@ -257,18 +257,24 @@ input:focus, select:focus, textarea:focus {
     align-items: center !important;
   }
 
-  .sidebar-nav nav button span {
-    font-size: 22px !important;
+  /* Specificity fix: Only target the emoji span, not the nav-label */
+  .sidebar-nav nav button > div > span:not(.nav-label) {
+    font-size: 20px !important;
   }
 
   .nav-label {
     font-size: 10px !important;
-    font-weight: 600 !important;
+    font-weight: 500 !important;
     text-transform: capitalize !important;
   }
 
   .sidebar-header, .sidebar-logout, .sidebar-footer {
     display: none !important;
+  }
+
+  /* Reduce glass-panel padding everywhere on mobile to save space */
+  .glass-panel {
+    padding: 16px !important;
   }
 
   /* Mobile overlay modals (like Receipt) */
@@ -279,5 +285,7 @@ input:focus, select:focus, textarea:focus {
   }
 
   /* Typography reset for mobile */
-  .main-header h2 { font-size: 22px !important; }
+  .main-header h2 { font-size: 20px !important; }
+  h2 { font-size: 22px !important; }
+  h3 { font-size: 18px !important; }
 }
