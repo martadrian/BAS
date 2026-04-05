@@ -184,7 +184,7 @@ export default function Sales({ user, settings }) {
   const inputBase = { background: 'rgba(255,255,255,0.05)', border: '1px solid var(--glass-border)', borderRadius: '8px', color: '#fff', outline: 'none', fontFamily: 'inherit' };
 
   return (
-    <div className="mobile-stack" style={{ display: 'flex', height: '100%', gap: '20px', overflow: 'hidden' }}>
+    <div className="pos-container" style={{ display: 'flex', height: '100%', gap: '20px', overflow: 'hidden' }}>
 
       {/* ── Receipt Modal ── */}
       {receipt && (
@@ -259,7 +259,7 @@ export default function Sales({ user, settings }) {
       )}
 
       {/* ── LEFT: Product Grid ── */}
-      <div className="glass-panel animate-fade-in" style={{ flex: 3, padding: '24px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div className="glass-panel animate-fade-in pos-product-panel" style={{ flex: 3, padding: '24px', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         {/* Search bar */}
         <div style={{ display: 'flex', gap: '10px', marginBottom: '20px', alignItems: 'center' }}>
           <div style={{ flex: 1, position: 'relative' }}>
@@ -289,7 +289,7 @@ export default function Sales({ user, settings }) {
       </div>
 
       {/* ── RIGHT: Checkout Panel ── */}
-      <div className="glass-panel animate-fade-in mobile-full-width" style={{ width: '380px', flexShrink: 0, padding: '24px', display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden' }}>
+      <div className="glass-panel animate-fade-in pos-checkout-panel" style={{ width: '380px', flexShrink: 0, padding: '24px', display: 'flex', flexDirection: 'column', gap: '0', overflow: 'hidden' }}>
 
         {/* Panel Header */}
         <div style={{ marginBottom: '18px', borderBottom: '1px solid var(--glass-border)', paddingBottom: '16px' }}>

@@ -284,6 +284,30 @@ input:focus, select:focus, textarea:focus {
     margin-top: auto !important; /* pushes modal to bottom */
   }
 
+  /* POS Fixes */
+  .pos-container {
+    flex-direction: column !important;
+    height: auto !important;
+    overflow-y: visible !important;
+    padding-bottom: 24px;
+  }
+  .pos-product-panel {
+    flex: none !important;
+    height: 60vh !important;
+    min-height: 400px !important;
+    margin-bottom: 12px !important;
+  }
+  .pos-checkout-panel {
+    flex: none !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .pos-checkout-panel > div:nth-child(2) {
+    /* Allow cart list to grow instead of hiding overflow */
+    max-height: 300px !important;
+    overflow-y: auto !important;
+  }
+
   /* Typography reset for mobile */
   .main-header h2 { font-size: 20px !important; }
   h2 { font-size: 22px !important; }
